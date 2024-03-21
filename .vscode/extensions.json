@@ -1,0 +1,7 @@
+{
+    "recommendations": [
+        "twxs.cmake",
+        "ms-vscode.cmake-tools",
+        "espressif.esp-idf-extension"
+    ]
+}

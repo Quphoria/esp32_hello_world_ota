@@ -1,0 +1,9 @@
+# Ignore build directory
+build/
+
+# Ignore old sdkconfig files
+sdkconfig.ci
+sdkconfig.old
+
+# Ignore python module cache
+__pycache__/
