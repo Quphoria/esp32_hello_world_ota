@@ -183,7 +183,7 @@ static void print_sha256(const uint8_t *image_hash, const char *label)
 void ota_check_for_update(void)
 {
 #ifdef CONFIG_OTA_ALLOW_HTTP
-    printf(TAG, "WARNING: CONFIG_OTA_ALLOW_HTTP is enabled, this is NOT SECURE, please use this carefully.\n");
+    ESP_LOGW(TAG, "WARNING: CONFIG_OTA_ALLOW_HTTP is enabled, this is NOT SECURE, please use this carefully.\n");
 #endif
 
     xOTAUpdateTaskFinished = xSemaphoreCreateBinary();
