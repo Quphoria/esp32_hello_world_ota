@@ -54,6 +54,22 @@ menu "OTA Configuration"
         help
             URL of server which hosts the firmware
             image.
+
+    config OTA_USE_CERT_BUNDLE
+        bool "Enable certificate bundle"
+        default y
+        depends on MBEDTLS_CERTIFICATE_BUNDLE && !OTA_ALLOW_HTTP
+        help
+            Enable trusted root certificate bundle. This approach allows to have
+            OTA updates functional with any public server without requirement
+            to explicitly add its server certificate.
+
+    config OTA_SKIP_COMMON_NAME_CHECK
+        bool "Skip server certificate CN fieldcheck"
+        default n
+        depends on !OTA_ALLOW_HTTP
+        help
+            This allows you to skip the validation of OTA server certificate CN field.
             
     config OTA_SKIP_VERSION_CHECK
         bool "Skip firmware version check"

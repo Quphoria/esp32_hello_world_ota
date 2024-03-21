@@ -13,3 +13,13 @@ Edit the configuration with your wifi network information and the firmware upgra
 
 A very basic OTA HTTP Server is here called "ota_http_server.py", run it with the path of the .bin file for your update, e.g. `python ota_http_server.py .\build\hello_world_ota.bin`.  
 Alternatively, you just need to put the .bin file on any basic HTTP server and change the upgrade url to point to it.  
+
+## HTTPS Support
+
+To use HTTPS (recommended for anything in production, or where security is required), disable "ESP HTTPS OTA -> Allow HTTP for OTA" in the configuration and use an HTTPS firmware upgrade url.
+
+To use a custom self-signed certificate, you will need to modify `main/CMakeLists.txt` to enabled embedding a certificate, and add the certificates in a directory called `server_certs`, and configure the necessary configuration options. For more information, see: https://github.com/espressif/esp-idf/tree/master/examples/system/ota/simple_ota_example  
+
+
+
+

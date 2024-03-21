@@ -17,6 +17,11 @@ static const char *TAG = "[OTA]";
 
 #define OTA_URL_SIZE 256
 
+#ifndef CONFIG_OTA_ALLOW_HTTP
+extern const uint8_t server_cert_pem_start[] asm("_binary_ca_cert_pem_start");
+extern const uint8_t server_cert_pem_end[] asm("_binary_ca_cert_pem_end");
+#endif /* CONFIG_OTA_ALLOW_HTTP */
+
 SemaphoreHandle_t xOTAUpdateTaskFinished;
 
 static void print_sha256(const uint8_t *image_hash, const char *label);
@@ -89,9 +94,20 @@ void ota_task(void *pvParameter)
 
     esp_http_client_config_t config = {
         .url = CONFIG_OTA_FIRMWARE_UPGRADE_URL,
+#ifdef CONFIG_OTA_USE_CERT_BUNDLE
+        .crt_bundle_attach = esp_crt_bundle_attach,
+#else
+#ifndef CONFIG_OTA_ALLOW_HTTP
+        .cert_pem = (char *)server_cert_pem_start,
+#endif /* CONFIG_OTA_ALLOW_HTTP */
+#endif /* CONFIG_OTA_USE_CERT_BUNDLE */
         .timeout_ms = CONFIG_OTA_RECV_TIMEOUT,
         .keep_alive_enable = true,
     };
+
+#ifdef CONFIG_OTA_SKIP_COMMON_NAME_CHECK
+    config.skip_cert_common_name_check = true;
+#endif
 
     esp_https_ota_config_t ota_config = {
         .http_config = &config,
