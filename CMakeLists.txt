@@ -3,7 +3,7 @@
 cmake_minimum_required(VERSION 3.5)
 
 # Project version (used for OTA update firmware version check)
-set(PROJECT_VER 7)
+set(PROJECT_VER 1)
 
 include($ENV{IDF_PATH}/tools/cmake/project.cmake)
 project(hello_world_ota)

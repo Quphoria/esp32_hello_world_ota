@@ -63,7 +63,7 @@ menu "OTA Configuration"
 
     config OTA_UPDATE_IF_HASH_CHANGED
         bool "Update if hash changed"
-        default n
+        default y
         help
             This updates if the hash changes (even if the version number stays the same).
 
